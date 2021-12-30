@@ -512,6 +512,7 @@ if __name__ == '__main__':
     
     reps = ['aa', 'rotmat', 'quat']
     dbs = ['amass', 'h36m', 'cmu']
+    train_fnames_avail = None
 
     for db in dbs:
         data_dir = Path(<PATH TO DATASETS>) / db
@@ -539,7 +540,8 @@ if __name__ == '__main__':
                 RAW_AMASS_dir = <PATH TO RAW AMASS DATASET>
                 window_size = 180  # 3 seconds
                 window_stride = 30  
-                train_fnames_avail, valid_fnames_avail, test_fnames_avail = find_files_amass(RAW_AMASS_dir, data_dir)   
+                if not train_fnames_avail:
+                    train_fnames_avail, valid_fnames_avail, test_fnames_avail = find_files_amass(RAW_AMASS_dir, data_dir)   
                 train_data, train_ids = load_data_amass(train_fnames_avail, fps_30=False)
                 valid_data, valid_ids = load_data_amass(valid_fnames_avail, fps_30=False)
                 test_data, test_ids = load_data_amass(test_fnames_avail, fps_30=False)

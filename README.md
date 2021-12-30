@@ -14,6 +14,17 @@ Python 3.8.8 version is used for development.
 * [H3.6M](https://ieeexplore.ieee.org/document/6682899)
 * [CMU Mocap](http://mocap.cs.cmu.edu/)
 
+## Train 
+
+
+
+## Test
+
+
+
+## Results
+
+
 
 ## References
 [SPL](https://github.com/eth-ait/spl)
