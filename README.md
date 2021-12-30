@@ -17,5 +17,7 @@ Python 3.8.8 version is used for development.
 
 ## References
 [SPL](https://github.com/eth-ait/spl)
+
 [MSRGCN](https://github.com/Droliven/MSRGCN)
+
 [Human motion prediction](https://github.com/una-dinosauria/human-motion-prediction)
