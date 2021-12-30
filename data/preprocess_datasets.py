@@ -559,16 +559,16 @@ if __name__ == '__main__':
 
             print('Meta stats for all splits combined')
             total_stats = tr_stats
-            for db in tr_stats.keys():
-                for k in tr_stats[db].keys():
-                    total_stats[db][k] += va_stats[db][k] if db in va_stats else 0
-                    total_stats[db][k] += te_stats[db][k] if db in te_stats else 0
+            for db_i in tr_stats.keys():
+                for k in tr_stats[db_i].keys():
+                    total_stats[db_i][k] += va_stats[db_i][k] if db_i in va_stats else 0
+                    total_stats[db_i][k] += te_stats[db_i][k] if db_i in te_stats else 0
 
             tot_samples = 0
             tot_frames = 0
-            for db in total_stats.keys():
-                tot_frames += total_stats[db]['n_frames']
-                tot_samples += total_stats[db]['n_samples']
-                print('{:>20} -> {:>4d} sequences, {:>12d} frames'.format(db, total_stats[db]['n_samples'], total_stats[db]['n_frames']))
+            for db_i in total_stats.keys():
+                tot_frames += total_stats[db_i]['n_frames']
+                tot_samples += total_stats[db_i]['n_samples']
+                print('{:>20} -> {:>4d} sequences, {:>12d} frames'.format(db_i, total_stats[db_i]['n_samples'], total_stats[db_i]['n_frames']))
 
         print('{:>20} -> {:>4d} sequences, {:>12d} frames'.format('Total', tot_samples, tot_frames))
