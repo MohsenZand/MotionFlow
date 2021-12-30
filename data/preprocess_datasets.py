@@ -219,7 +219,7 @@ def process_split(db, poses, file_ids, output_path, n_tfs, compute_stats, create
             db_name = db
 
         if db_name not in meta_stats_per_db:
-            meta_stats_per_db[db] = {'n_samples': 0, 'n_frames': 0}
+            meta_stats_per_db[db_name] = {'n_samples': 0, 'n_frames': 0}
 
         if create_windows is not None:
             if pose.shape[0] < create_windows[0]:
@@ -276,10 +276,10 @@ def process_split(db, poses, file_ids, output_path, n_tfs, compute_stats, create
     print()
     tot_samples = 0
     tot_frames = 0
-    for db in meta_stats_per_db.keys():
-        tot_frames += meta_stats_per_db[db]['n_frames']
-        tot_samples += meta_stats_per_db[db]['n_samples']
-        print('{:>20} -> {:>4d} sequences, {:>12d} frames'.format(db, meta_stats_per_db[db]['n_samples'], meta_stats_per_db[db]['n_frames']))
+    for db_i in meta_stats_per_db.keys():
+        tot_frames += meta_stats_per_db[db_i]['n_frames']
+        tot_samples += meta_stats_per_db[db_i]['n_samples']
+        print('{:>20} -> {:>4d} sequences, {:>12d} frames'.format(db_i, meta_stats_per_db[db_i]['n_samples'], meta_stats_per_db[db_i]['n_frames']))
 
     print('{:>20} -> {:>4d} sequences, {:>12d} frames'.format('Total', tot_samples, tot_frames))
 
