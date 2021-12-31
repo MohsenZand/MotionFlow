@@ -193,12 +193,12 @@ def process_split(db, poses, file_ids, output_path, n_tfs, compute_stats, create
         os.makedirs(output_path)
 
     # save data as tfrecords
-    tfrecord_writers = create_tfrecord_writers(os.path.join(output_path, db), n_tfs)
-    tfrecord_writers_dyn = None
-    if create_windows is not None:
+    if create_windows is None:
+        tfrecord_writers = create_tfrecord_writers(os.path.join(output_path, db), n_tfs)
+    else:
         if not os.path.exists(output_path + '_dynamic'):
             os.makedirs(output_path + '_dynamic')
-        tfrecord_writers_dyn = create_tfrecord_writers(os.path.join(output_path + '_dynamic', db), n_tfs)
+        tfrecord_writers = create_tfrecord_writers(os.path.join(output_path + '_dynamic', db), n_tfs)
 
     # compute normalization stats online
     n_all, mean_all, var_all, m2_all = 0.0, 0.0, 0.0, 0.0
@@ -227,7 +227,7 @@ def process_split(db, poses, file_ids, output_path, n_tfs, compute_stats, create
 
             # first save it without splitting into windows
             tfexample = to_tfexample(pose, '{}/{}'.format(0, file_ids[idx]), db_name)
-            write_tfexample(tfrecord_writers_dyn, tfexample)
+            write_tfexample(tfrecord_writers, tfexample)
 
             # then split into windows and save later
             pose_w = split_into_windows(pose, create_windows[0], create_windows[1])
@@ -269,8 +269,6 @@ def process_split(db, poses, file_ids, output_path, n_tfs, compute_stats, create
                 max_seq_len = seq_len if seq_len > max_seq_len else max_seq_len
 
     close_tfrecord_writers(tfrecord_writers)
-    if create_windows is not None:
-        close_tfrecord_writers(tfrecord_writers_dyn)
 
     # print meta stats
     print()
@@ -512,6 +510,7 @@ if __name__ == '__main__':
     
     reps = ['aa', 'rotmat', 'quat']
     dbs = ['amass', 'h36m', 'cmu']
+    
     train_fnames_avail = None
 
     for db in dbs:
@@ -531,7 +530,7 @@ if __name__ == '__main__':
             elif db == 'cmu':
                 window_size = 150  # 3 seconds
                 window_stride = 10 
-                actions = define_actions('all', 'h36m')
+                actions = define_actions('all', 'cmu')
                 train_data, train_ids = load_data_cmu(data_dir, 'train', actions, rep=rep, fps_25=False)
                 test_data, test_ids = load_data_cmu(data_dir, 'test', actions, rep=rep, fps_25=False)
                 valid_data, valid_ids = test_data, test_ids

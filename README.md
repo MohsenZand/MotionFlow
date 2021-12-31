@@ -10,9 +10,9 @@ Python 3.8.8 version is used for development.
 
 
 ## Datasets
-* [AMASS](https://arxiv.org/abs/1904.03278)
-* [H3.6M](https://ieeexplore.ieee.org/document/6682899)
-* [CMU Mocap](http://mocap.cs.cmu.edu/)
+* [AMASS](https://arxiv.org/abs/1904.03278) Download [here](https://dip.is.tue.mpg.de/)
+* [H3.6M](https://ieeexplore.ieee.org/document/6682899) Download [here](http://vision.imar.ro/human3.6m/description.php), or it can be downloaded in exponential map from [here](http://www.cs.stanford.edu/people/ashesh/h3.6m.zip)
+* [CMU Mocap](http://mocap.cs.cmu.edu/) Download [here](https://github.com/chaneyddtt/Convolutional-Sequence-to-Sequence-Model-for-Human-Dynamics/tree/master/data/cmu_mocap)
 
 ## Train 
 
@@ -24,7 +24,11 @@ Python 3.8.8 version is used for development.
 
 ## Results
 
-
+## Citation
+Please cite our paper if you use code from this repository:
+```
+(https://arxiv.org/pdf/2104.04391.pdf)
+```
 
 ## References
 [SPL](https://github.com/eth-ait/spl)
@@ -32,3 +36,5 @@ Python 3.8.8 version is used for development.
 [MSRGCN](https://github.com/Droliven/MSRGCN)
 
 [Human motion prediction](https://github.com/una-dinosauria/human-motion-prediction)
+
+[Convolutional Sequence-to-Sequence Model](https://github.com/chaneyddtt/Convolutional-Sequence-to-Sequence-Model-for-Human-Dynamics)
