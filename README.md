@@ -27,7 +27,12 @@ Python 3.8.8 version is used for development.
 ## Citation
 Please cite our paper if you use code from this repository:
 ```
-(https://arxiv.org/pdf/2104.04391.pdf)
+@article{zand2021flow,
+  title={Flow-based Autoregressive Structured Prediction of Human Motion},
+  author={Zand, Mohsen and Etemad, Ali and Greenspan, Michael},
+  journal={arXiv preprint arXiv:2104.04391},
+  year={2021}
+}
 ```
 
 ## References
