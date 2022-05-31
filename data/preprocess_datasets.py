@@ -509,7 +509,7 @@ def load_data_amass(fnames, fps_30=False):
 if __name__ == '__main__':
     
     reps = ['aa', 'rotmat', 'quat']
-    dbs = ['amass', 'h36m', 'cmu']
+    dbs = ['h36m', 'cmu', 'amass']
     
     train_fnames_avail = None
 
@@ -551,9 +551,11 @@ if __name__ == '__main__':
             tr_stats = process_split(db, train_data, train_ids, os.path.join(data_dir, rep, 'training'), n_tfs, compute_stats=False, create_windows=(window_size, window_stride))
 
             print('process validation data ...')
+            va_stats = process_split(db, valid_data, valid_ids, os.path.join(data_dir, rep, 'validation'), n_tfs, compute_stats=False, create_windows=None)
             va_stats = process_split(db, valid_data, valid_ids, os.path.join(data_dir, rep, 'validation'), n_tfs, compute_stats=False, create_windows=(window_size, window_stride))
 
             print('process test data ...')
+            te_stats = process_split(db, test_data, test_ids, os.path.join(data_dir, rep, 'test'), n_tfs, compute_stats=False, create_windows=None)
             te_stats = process_split(db, test_data, test_ids, os.path.join(data_dir, rep, 'test'), n_tfs, compute_stats=False, create_windows=(window_size, window_stride))
 
             print('Meta stats for all splits combined')

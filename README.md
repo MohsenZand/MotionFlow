@@ -43,3 +43,7 @@ Please cite our paper if you use code from this repository:
 [Human motion prediction](https://github.com/una-dinosauria/human-motion-prediction)
 
 [Convolutional Sequence-to-Sequence Model](https://github.com/chaneyddtt/Convolutional-Sequence-to-Sequence-Model-for-Human-Dynamics)
+
+[Conditional-Glow](https://github.com/yolu1055/conditional-glow)
+
+[Locally Masked Convolution](https://github.com/ajayjain/lmconv)
