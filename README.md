@@ -28,10 +28,10 @@ Python 3.8.8 version is used for development.
 Please cite our paper if you use code from this repository:
 ```
 @article{zand2021flow,
-  title={Flow-based Autoregressive Structured Prediction of Human Motion},
+  title={Flow-based Spatio-Temporal Structured Prediction of Dynamics},
   author={Zand, Mohsen and Etemad, Ali and Greenspan, Michael},
   journal={arXiv preprint arXiv:2104.04391},
-  year={2021}
+  year={2022}
 }
 ```
 
