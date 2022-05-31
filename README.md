@@ -9,10 +9,10 @@ This code is tested under Ubuntu 18.04, CUDA 11.2, with one NVIDIA Titan RTX GPU
 Python 3.8.8 version is used for development.
 
 
-## Datasets
+<!---## Datasets
 * [AMASS](https://arxiv.org/abs/1904.03278) Download [here](https://dip.is.tue.mpg.de/)
 * [H3.6M](https://ieeexplore.ieee.org/document/6682899) Download [here](http://vision.imar.ro/human3.6m/description.php), or it can be downloaded in exponential map from [here](http://www.cs.stanford.edu/people/ashesh/h3.6m.zip)
-* [CMU Mocap](http://mocap.cs.cmu.edu/) Download [here](https://github.com/chaneyddtt/Convolutional-Sequence-to-Sequence-Model-for-Human-Dynamics/tree/master/data/cmu_mocap)
+* [CMU Mocap](http://mocap.cs.cmu.edu/) Download [here](https://github.com/chaneyddtt/Convolutional-Sequence-to-Sequence-Model-for-Human-Dynamics/tree/master/data/cmu_mocap) --->
 
 ## Train 
 
