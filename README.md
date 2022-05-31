@@ -1,5 +1,5 @@
 # MotionFlow
-[Flow-based Autoregressive Structured Prediction of Human Motion](https://arxiv.org/pdf/2104.04391.pdf)
+[Flow-based Spatio-Temporal Structured Prediction of Dynamics](https://arxiv.org/pdf/2104.04391.pdf)
 
 
 ## Dependencies
