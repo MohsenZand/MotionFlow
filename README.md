@@ -36,7 +36,7 @@ Please cite our paper if you use code from this repository:
 ```
 
 ## References
-[SPL](https://github.com/eth-ait/spl)
+<!---[SPL](https://github.com/eth-ait/spl)
 
 [MSRGCN](https://github.com/Droliven/MSRGCN)
 
@@ -46,4 +46,4 @@ Please cite our paper if you use code from this repository:
 
 [Conditional-Glow](https://github.com/yolu1055/conditional-glow)
 
-[Locally Masked Convolution](https://github.com/ajayjain/lmconv)
+[Locally Masked Convolution](https://github.com/ajayjain/lmconv)--->
