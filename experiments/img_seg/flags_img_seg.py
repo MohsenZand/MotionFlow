@@ -2,7 +2,7 @@ from absl import flags
 
 # GNERAL 
 flags.DEFINE_string('data_dir', '<...>', 'Processed data path')
-flags.DEFINE_string('run_dir', '<...>', 'Path to save results, logs, and checkpoints')  ###
+flags.DEFINE_string('run_dir', '<...>', 'Path to save results, logs, and checkpoints') 
 flags.DEFINE_string('exp_name', 'img_seg', 'experiment name')
 flags.DEFINE_string('db', 'weizmann_horse', 'db name')
 flags.DEFINE_bool('exist_ok', True, 'existing name ok, do not increment')
@@ -39,7 +39,7 @@ flags.DEFINE_integer('kernel_size', 3, 'kernel size')
 flags.DEFINE_boolean('plot_mask', False, 'plot masks if True')
 
 # TRAIN
-flags.DEFINE_string('device', '0', 'cuda device, i.e. 0 or 0,1,2,3 or cpu')  ###
+flags.DEFINE_string('device', '0', 'cuda device, i.e. 0 or 0,1,2,3 or cpu') 
 flags.DEFINE_integer('batch_size', 32, 'batch_size')
 flags.DEFINE_integer('num_epochs', 1000, 'num_epochs')
 flags.DEFINE_integer('init_epoch', 0, 'init epoch is set when loading checkpoint')
