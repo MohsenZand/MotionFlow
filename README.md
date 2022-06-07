@@ -9,8 +9,8 @@ This code is tested under Ubuntu 18.04, CUDA 11.2, with one NVIDIA Titan RTX GPU
 Python 3.8.8 version is used for development.
 
 ## Datasets
-* [Weizmann Horse Database] Download [here](https://www.msri.org/people/members/eranb/)
-* [CMU Mocap](http://mocap.cs.cmu.edu/) Download [here](https://github.com/chaneyddtt/Convolutional-Sequence-to-Sequence-Model-for-Human-Dynamics/tree/master/data/cmu_mocap)\
+* Weizmann Horse Database, Download [here](https://www.msri.org/people/members/eranb/)
+* [CMU Mocap](http://mocap.cs.cmu.edu/) Download [here](https://github.com/chaneyddtt/Convolutional-Sequence-to-Sequence-Model-for-Human-Dynamics/tree/master/data/cmu_mocap)
 
 <!---
 * [AMASS](https://arxiv.org/abs/1904.03278) Download [here](https://dip.is.tue.mpg.de/)
