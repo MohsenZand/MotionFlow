@@ -52,7 +52,7 @@ flags.DEFINE_float('max_grad_clip', 0.25, 'max_grad_clip')
 flags.DEFINE_float('max_grad_norm', 0, 'max_grad_norm')
 
 # EVALUATION
-flags.DEFINE_integer('num_samples', 20, 'number of samples in sampled-based inference')
+flags.DEFINE_integer('num_samples', 10, 'number of samples in sampled-based inference')
 
 
 
