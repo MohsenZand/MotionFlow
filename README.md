@@ -16,10 +16,10 @@ Python 3.8.8 version is used for development.
 ### Binary Segmentation
 Set 'data_dir' and 'run_dir' in 'experiments/img_seg/flags_img_seg.py'\
 Run 'experiments/img_seg/train.py'\
-You can use trained model: 
-- [Download]() the trained model and save it in the 'checkpoint' directory
+<!--- You can use the trained model: 
+- [Download]() the trained model and save it in the 'checkpoints' directory
 - Set 'load_weights'= 'True' in 'experiments/img_seg/flags_img_seg.py'
-- Run  'experiments/img_seg/test.py'
+- Run  'experiments/img_seg/test.py' --->
 
 [<img src="https://github.com/MohsenZand/MotionFlow/blob/main/experiments/img_seg/seg_result.jpg" width="400"/>](https://github.com/MohsenZand/MotionFlow/blob/main/experiments/img_seg/seg_result.jpg)
 
