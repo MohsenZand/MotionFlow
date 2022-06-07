@@ -21,7 +21,12 @@ Python 3.8.8 version is used for development.
 Set 'data_dir' and 'run_dir' in 'experiments/img_seg/flags_img_seg.py'\
 Run 'experiments/img_seg/train.py'
 
-![alt text](https://github.com/MohsenZand/MotionFlow/tree/main/experiments/img_seg/seg_result.pdf?raw=true)
+<object data="https://github.com/MohsenZand/MotionFlow/tree/main/experiments/img_seg/seg_result.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="https://github.com/MohsenZand/MotionFlow/tree/main/experiments/img_seg/seg_result.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://github.com/MohsenZand/MotionFlow/tree/main/experiments/img_seg/seg_result.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
+
 
 ### CMU Mocap
 
