@@ -1,9 +1,9 @@
 from absl import flags
 
 # GNERAL 
-flags.DEFINE_string('data_dir', '/media/mohsen/myDrive/datasets/weizmann_horse', 'Where to store the tfrecords. Processed data path')
-flags.DEFINE_string('run_dir', '/media/mohsen/myDrive/runs/MotionFlow', 'save to project/name')  ###
-flags.DEFINE_string('exp_name', 'img_seg!', 'img_seg, experiment name')
+flags.DEFINE_string('data_dir', '<...>', 'Processed data path')
+flags.DEFINE_string('run_dir', '<...>', 'Path to save results, logs, and checkpoints')  ###
+flags.DEFINE_string('exp_name', 'img_seg', 'experiment name')
 flags.DEFINE_string('db', 'weizmann_horse', 'db name')
 flags.DEFINE_bool('exist_ok', True, 'existing name ok, do not increment')
 flags.DEFINE_bool('load_weights', False, 'use pretrain weights, stored in the checkpoint path in exp dir')

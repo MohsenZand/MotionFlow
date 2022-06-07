@@ -16,15 +16,14 @@ Python 3.8.8 version is used for development.
 * [AMASS](https://arxiv.org/abs/1904.03278) Download [here](https://dip.is.tue.mpg.de/)
 * [H3.6M](https://ieeexplore.ieee.org/document/6682899) Download [here](http://vision.imar.ro/human3.6m/description.php), or it can be downloaded in exponential map from [here](http://www.cs.stanford.edu/people/ashesh/h3.6m.zip) --->
 
-## Train 
-
-
-
-## Test
-
-
-
 ## Results
+### Binary Segmentation
+Set 'data_dir' and 'run_dir' in 'experiments/img_seg/flags_img_seg.py'
+Run 'experiments/img_seg/train.py'
+
+### CMU Mocap
+
+
 
 ## Citation
 Please cite our paper if you use code from this repository:
