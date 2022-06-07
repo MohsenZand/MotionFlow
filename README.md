@@ -36,8 +36,8 @@ Please cite our paper if you use code from this repository:
 ```
 
 ## References
-[Conditional-Glow](https://github.com/yolu1055/conditional-glow)__
-[Locally Masked Convolution](https://github.com/ajayjain/lmconv)__
+[Conditional-Glow](https://github.com/yolu1055/conditional-glow)  
+[Locally Masked Convolution](https://github.com/ajayjain/lmconv)  
 
 <!---[SPL](https://github.com/eth-ait/spl)
 
