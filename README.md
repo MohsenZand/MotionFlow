@@ -17,7 +17,7 @@ Python 3.8.8 version is used for development.
 Set 'data_dir' and 'run_dir' in 'experiments/img_seg/flags_img_seg.py'\
 Run 'experiments/img_seg/train.py'
 
-[<img src="https://github.com/MohsenZand/MotionFlow/blob/main/experiments/img_seg/seg_result.jpg" width="250"/>](https://github.com/MohsenZand/MotionFlow/blob/main/experiments/img_seg/seg_result.jpg)
+[<img src="https://github.com/MohsenZand/MotionFlow/blob/main/experiments/img_seg/seg_result.jpg" width="400"/>](https://github.com/MohsenZand/MotionFlow/blob/main/experiments/img_seg/seg_result.jpg)
 
 
 ### CMU Mocap
