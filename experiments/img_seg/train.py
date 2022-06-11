@@ -4,7 +4,6 @@ from absl import app, flags
 from pathlib import Path
 from colorama import Fore, Style
 from tqdm import tqdm
-
 import numpy as np 
 import torch 
 from torch.utils.tensorboard import SummaryWriter
@@ -32,7 +31,7 @@ class Trainer():
         device = select_device(FLAGS.device, batch_size=FLAGS.batch_size)
         print(f'{Style.RESET_ALL}')
 
-        self.data_path = FLAGS.data_dir
+        self.data_dir = FLAGS.data_dir
         
         model = MotionFlowModel(FLAGS).to(device) 
         
@@ -78,11 +77,11 @@ class Trainer():
 
     def train(self):    
         device = self.device
-        data_path = self.data_path
+        data_dir = self.data_dir
         checkpoints_dir = self.checkpoints_dir
 
-        train_data = HorseDataset(data_path, (FLAGS.x_size[1], FLAGS.x_size[2]), FLAGS.x_size[0], "train")
-        val_data = HorseDataset(data_path, (FLAGS.x_size[1], FLAGS.x_size[2]), FLAGS.x_size[0], portion="valid")
+        train_data = HorseDataset(data_dir, (FLAGS.x_size[1], FLAGS.x_size[2]), FLAGS.x_size[0], "train")
+        val_data = HorseDataset(data_dir, (FLAGS.x_size[1], FLAGS.x_size[2]), FLAGS.x_size[0], portion="valid")
 
         train_loader = DataLoader(train_data, batch_size=FLAGS.batch_size, shuffle=True, drop_last=True)                       
 

@@ -21,12 +21,14 @@ class MotionFlowModel(nn.Module):
         self.n_bins = 2
         self.seq_size_x = args.x_size  
         self.seq_size_y = args.y_size  
+        self.residual = args.residual
+        self.pred_length = args.pred_length
 
         self.flow = MotionFlow(args)
-        self.nn_theta = NNTheta(encoder_ch_in=self.seq_size_y[0]*2, encoder_mode='conv_net', h_ch_in=self.seq_size_y[0], num_blocks=5)
+        self.nn_theta = NNTheta(encoder_ch_in=self.seq_size_y[0]*2, encoder_mode='conv_net', h_ch_in=self.seq_size_y[0], num_blocks=5) 
         self.register_parameter("new_mean", nn.Parameter(torch.zeros([1, self.flow.output_shapes[-1][1], self.flow.output_shapes[-1][2], self.flow.output_shapes[-1][3]])))
         self.register_parameter("new_logs", nn.Parameter(torch.zeros([1, self.flow.output_shapes[-1][1], self.flow.output_shapes[-1][2], self.flow.output_shapes[-1][3]])))
-        
+
     def forward(self, x, y=None, eps_std=1.0, reverse=False, device=None):
         B = x.size(0)
         s1, s2, s3 = self.seq_size_x
@@ -37,26 +39,92 @@ class MotionFlowModel(nn.Module):
         logdet += float(-np.log(self.n_bins) * dimensions)
         mean, logs = self.prior()   
 
+        x = x.view(B, s2, s3, s1)
+        x = x.permute(0, 3, 1, 2).contiguous()
+
         if reverse == False:
+            y = [y[:, i:i+1] for i in range(y.shape[1])]
+
+            nll = 0.0
             objective = 0.0
-            y = y.permute(0, 2, 1, 3).contiguous()
+            z = []
             
-            z, logdet = self.flow(x, y, logdet=logdet, reverse=False)
+            for i in range(len(y)):
+                yi = y[i]
+
+                yi = yi.view(B, s2y, s1y, s3y)
+                yi = yi.permute(0, 2, 1, 3).contiguous()
+
+                if self.residual:
+                    y_dif = yi - x.permute(0, 3, 2, 1)[:, :, -1:]
+                    zi, logdet = self.flow(x, y_dif, logdet=logdet, reverse=False)
+                else:
+                    zi, logdet = self.flow(x, yi, logdet=logdet, reverse=False)
+                
+                z.append(zi)
+
+                x = torch.cat((x[:, :, 1:], yi.permute(0, 3, 2, 1)), dim=2)
+
+                objective += GaussianDiag.logp(mean, logs, zi)
+                
+            mu, logsigma = self.nn_theta(z[0], z[1])
+            objective += GaussianDiag.logp(mu, logsigma, z[1])
+
+            mu, logsigma = self.nn_theta(z[1], z[2])
+            objective += GaussianDiag.logp(mu, logsigma, z[2])
             
-            objective += GaussianDiag.logp(mean, logs, z)
             objective += logdet    
             nll = -objective / float(np.log(2.) * dimensions)
+
+            z_out = zi.clone()
                 
-            return z, nll
+            return z_out, nll
 
         else:
             with torch.no_grad():
                 if reverse:
+                    ys = []
+                    #temperature = 0.6 #0.5
                     eps_std = 0.006
+                    z = []
                     z_init = GaussianDiag.batchsample(B, mean, logs, eps_std)
-                    y, _ = self.flow(x, z_init, eps_std=eps_std, reverse=True)
-                    y = y.permute(0, 2, 1, 3)
                     
+                    y0 = x[:, :, -2:-1].permute(0, 3, 2, 1)
+                    y1 = x[:, :, -1:].permute(0, 3, 2, 1)
+                    x0 = torch.cat((x[:, :, :2], x[:, :, :-2]), dim=2)
+                    x1 = torch.cat((x[:, :, :1], x[:, :, :-1]), dim=2)
+                    if self.residual:
+                        y_dif = y0 - x0.permute(0, 3, 2, 1)[:, :, -1:]
+                        y_dif = y1 - x1.permute(0, 3, 2, 1)[:, :, -1:]
+                        z1, logdet_i = self.flow(x1, y_dif, logdet=logdet, reverse=False)
+                    else:
+                        z0, logdet_i = self.flow(x0, y0, logdet=logdet, reverse=False)
+                        z1, logdet_i = self.flow(x1, y1, logdet=logdet, reverse=False)
+                    
+                    z.append(z1)
+                    
+                    for i in range(self.pred_length):    
+                        mu, logsigma = self.nn_theta(z[i], z_init)
+                        zi = GaussianDiag.sample(mu, logsigma, eps_std)
+                        logdet += logdet_i
+                        if self.residual:
+                            y_dif, logdet_i = self.flow(x, zi, eps_std=eps_std, reverse=True)
+                        else:                            
+                            yi, logdet_i= self.flow(x, zi, eps_std=eps_std, reverse=True)
+
+                        z.append(zi)
+
+                        if self.residual:
+                            yi = x.permute(0, 3, 2, 1)[:, :, -1:] + y_dif
+                        
+                        x = torch.cat((x[:, :, 1:], yi.permute(0, 3, 2, 1)), dim=2)
+                        
+                        ys.append(yi)
+   
+                    y = torch.cat(ys, dim=2)
+                    y = y.permute(0, 2, 1, 3).contiguous()
+                    y = y.view(B, self.pred_length, -1)
+
             return y, logdet
 
     def prior(self):
@@ -99,7 +167,7 @@ class MotionFlow(nn.Module):
 
     def encode(self, x, y, logdet=0.0):
         x_actnorm, x_invconv = self.x_convs(x)
-        for layer, _ in zip(self.layers, self.output_shapes):
+        for layer, shape in zip(self.layers, self.output_shapes):
             y, logdet = layer(x, y, logdet, reverse=False, x_actnorm=x_actnorm, x_invconv=x_invconv)
         return y, logdet
 
@@ -189,7 +257,7 @@ class structuredGlowStep(nn.Module):
             # 3. cond-affine
             y, logdet = self.affine(x, y, logdet, reverse=False)
             # Return
-            
+
             return y, logdet
         else:
             # 3. cond-affine
@@ -233,8 +301,8 @@ class CondActNorm(nn.Module):
             logdet = logdet + dlogdet
 
         return y, logdet
-
-
+        
+        
 ################################
 class Cond1x1Conv(nn.Module):
     def __init__(self, x_size, x_hidden_channels, x_hidden_size, y_channels, masks, params):
@@ -299,7 +367,7 @@ class CondAffineCoupling(nn.Module):
         nr_filters = params['nr_filters']
         kernel_size = [params['kernel_size'], params['kernel_size']]
         dropout = nn.Dropout2d(0.5)
- 
+
         self.resize_x_1 = nn.Sequential(
             locally_masked_conv2d(input_channels + 1, nr_filters, self.mask_init1, kernel_size=kernel_size, bias=conv_bias, mask_weight=conv_mask_weight), PONO(), concat_elu(), dropout,
             locally_masked_conv2d(2*nr_filters, nr_filters//2, self.mask_undilated1, kernel_size=kernel_size, bias=conv_bias, mask_weight=conv_mask_weight), PONO(), concat_elu(),
@@ -319,7 +387,7 @@ class CondAffineCoupling(nn.Module):
             Conv2dNormy(y_size[0]*2, hidden_channels//2), concat_elu(), 
             Conv2dNormy(hidden_channels, hidden_channels//2, kernel_size=[1, 1]), concat_elu(), 
             Conv2dZerosy(hidden_channels, 2*y_size[0]), nn.Tanh())
-    
+
     def forward(self, x, y, logdet=0.0, reverse=False):
         z1, z2 = split_feature(y, "split")
         
@@ -350,7 +418,8 @@ class CondAffineCoupling(nn.Module):
             z2 = z2 + shift
             z2 = z2 * scale
             logdet = torch.sum(torch.log(scale), dim=(1, 2, 3)) + logdet
-        else:
+
+        if reverse == True:
             z2 = z2 / scale
             z2 = z2 - shift
             logdet = -torch.sum(torch.log(scale), dim=(1, 2, 3)) + logdet
@@ -416,6 +485,7 @@ class Conv2dResize(nn.Conv2d):
 ################################
 class Conv1dResize(nn.Conv1d):
     def __init__(self, in_size, out_size, kernel_size, stride):
+
         super().__init__(in_channels=in_size[0], out_channels=out_size[0], kernel_size=kernel_size, stride=stride)
         self.weight.data.zero_()
 
@@ -437,7 +507,7 @@ class LinearZeros(nn.Linear):
         output = super().forward(input.float())
         return output
 
-
+        
 ################################
 class LinearNorm(nn.Linear):
     def __init__(self, in_channels, out_channels):

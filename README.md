@@ -15,7 +15,7 @@ Python 3.8.8 version is used for development.
 ## Results
 ### Binary Segmentation
 Set 'data_dir' and 'run_dir' in 'experiments/img_seg/flags_img_seg.py'\
-Run 'experiments/img_seg/train.py'\
+Run 'experiments/img_seg/train.py'
 <!--- You can use the trained model: 
 - [Download]() the trained model and save it in the 'checkpoints' directory
 - Set 'load_weights'= 'True' in 'experiments/img_seg/flags_img_seg.py'
@@ -25,7 +25,10 @@ Run 'experiments/img_seg/train.py'\
 
 
 ### CMU Mocap
-
+Prepare the dataset by running 'experiments/motion/preprocess_datasets.py'\
+Set 'data_dir' and 'run_dir' in 'experiments/motion/flags_motion.py'\
+For training, run 'experiments/motion/train.py'\
+For evaluation and visualization, run 'experiments/motion/evaluation.py'
 
 
 ## Citation
