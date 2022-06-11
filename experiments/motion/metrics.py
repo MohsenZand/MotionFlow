@@ -2,7 +2,6 @@ import numpy as np
 import quaternion
 import cv2
 import copy
-import tensorflow as tf 
 import torch
 
 from utils import get_closest_rotmat, is_valid_rotmat, sparse_to_full
