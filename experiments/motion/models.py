@@ -84,7 +84,6 @@ class MotionFlowModel(nn.Module):
             with torch.no_grad():
                 if reverse:
                     ys = []
-                    #temperature = 0.6 #0.5
                     eps_std = 0.006
                     z = []
                     z_init = GaussianDiag.batchsample(B, mean, logs, eps_std)
