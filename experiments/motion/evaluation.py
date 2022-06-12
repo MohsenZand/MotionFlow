@@ -171,7 +171,6 @@ def main(_argv):
 
         seq_names = eval_result.keys()
         for _, k in enumerate(seq_names):
-            #for idx in range(len(eval_result[k])):
             randint = torch.randint(1, len(eval_result[k]), (10,))
             for idx in randint:
                 visualizer.visualize_results(
