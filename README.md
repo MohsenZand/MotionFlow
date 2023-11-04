@@ -1,4 +1,4 @@
-# [MotionFlow: Flow-based Spatio-Temporal Structured Prediction of Dynamics](https://arxiv.org/pdf/2104.04391.pdf)
+# [Flow-Based Spatio-Temporal Structured Prediction of Motion Dynamics](https://ieeexplore.ieee.org/abstract/document/10186219)
 
 
 ## Dependencies
@@ -34,12 +34,15 @@ For evaluation and visualization, run 'experiments/motion/evaluation.py'
 ## Citation
 Please cite our paper if you use code from this repository:
 ```
-@article{zand2021flow,
-  title={Flow-based Spatio-Temporal Structured Prediction of Dynamics},
+@ARTICLE{10186219,
   author={Zand, Mohsen and Etemad, Ali and Greenspan, Michael},
-  journal={arXiv preprint arXiv:2104.04391},
-  year={2022}
-}
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={Flow-Based Spatio-Temporal Structured Prediction of Motion Dynamics}, 
+  year={2023},
+  volume={45},
+  number={11},
+  pages={13523-13535},
+  doi={10.1109/TPAMI.2023.3296446}}
 ```
 
 ## References
